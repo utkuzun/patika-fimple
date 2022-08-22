@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-// const _ = require('lodash')
+const _ = require('lodash')
 
 const initialState = []
 
@@ -8,16 +8,25 @@ const boardSlice = createSlice({
   initialState,
   reducers: {
     setBoard(state, action) {
-      return action
+      const { gridsize } = action.payload
+      const board = _.times(gridsize ** 2, {}).map((item, index) => {
+        return { content: '', box: index }
+      })
+
+      return board
     },
 
     setElement(state, action) {
       const { id, turn } = action.payload
-      return state.map(
-        (item) => (item.id = id ? { ...item, content: turn } : item)
+      const newState = state.map((item) =>
+        item.box === id ? { ...item, content: turn } : item
       )
+
+      return newState
     },
   },
 })
+
+export const { setBoard, setElement } = boardSlice.actions
 
 export default boardSlice.reducer

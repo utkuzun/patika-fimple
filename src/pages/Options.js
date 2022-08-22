@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setOptions } from '../reducers/optionsReducer'
@@ -7,6 +7,7 @@ import { setOptions } from '../reducers/optionsReducer'
 const Options = () => {
   const options = useSelector((state) => state.options)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [optionForm, setOptionForm] = useState({
     gridsize: 3,
@@ -24,6 +25,7 @@ const Options = () => {
     e.preventDefault()
     console.log(optionForm)
     dispatch(setOptions(optionForm))
+    navigate('/game')
   }
 
   return (
