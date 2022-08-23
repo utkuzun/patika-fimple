@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-const _ = require('lodash')
 
+import { checkDraw, createBoard } from '../utils/boardHelpers'
 const initialState = []
 
 const boardSlice = createSlice({
@@ -9,9 +9,7 @@ const boardSlice = createSlice({
   reducers: {
     setBoard(state, action) {
       const { gridsize } = action.payload
-      const board = _.times(gridsize ** 2, {}).map((item, index) => {
-        return { content: '', box: index }
-      })
+      const board = createBoard({ gridsize })
 
       return board
     },
@@ -26,6 +24,22 @@ const boardSlice = createSlice({
     },
   },
 })
+
+export const makeMove = ({ id, turn }) => {
+  return async (dispatch, getState) => {
+    dispatch(setElement({ id, turn }))
+
+    const board = getState().board
+
+    const isDraw = checkDraw({ board })
+
+    if (isDraw) {
+      return { statusUpdate: 'draw' }
+    }
+
+    return { statusUpdate: 'continue' }
+  }
+}
 
 export const { setBoard, setElement } = boardSlice.actions
 

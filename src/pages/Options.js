@@ -17,13 +17,11 @@ const Options = () => {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target
-    console.log(name, value)
     setOptionForm({ ...optionForm, [name]: value })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(optionForm)
     dispatch(setOptions(optionForm))
     navigate('/game')
   }
