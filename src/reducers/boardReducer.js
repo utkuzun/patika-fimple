@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { checkDraw, createBoard } from '../utils/boardHelpers'
+import { checkDraw, createBoard, checkWin } from '../utils/boardHelpers'
 const initialState = []
 
 const boardSlice = createSlice({
@@ -36,6 +36,8 @@ export const makeMove = ({ id, turn }) => {
     if (isDraw) {
       return { statusUpdate: 'draw' }
     }
+
+    checkWin({ board, turn, id })
 
     return { statusUpdate: 'continue' }
   }
