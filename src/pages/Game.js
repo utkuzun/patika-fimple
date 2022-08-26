@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { setBoard, makeMove } from '../reducers/boardReducer'
+import { setBoard, makeMove, makePcMove } from '../reducers/boardReducer'
 
 const Game = () => {
   const board = useSelector((state) => state.board)
   const options = useSelector((state) => state.options)
-
-  const [turn, setTurn] = useState('X')
-  const [status, setStatus] = useState('start')
-
-  const toggleTurn = () => {
-    const newTurn = turn === 'X' ? 'O' : 'X'
-    setTurn(newTurn)
-  }
+  const game = useSelector((state) => state.game)
 
   const dispatch = useDispatch()
+
+  const { turn, lock, status } = game
 
   useEffect(() => {
     const gridsize = options.gridsize
@@ -23,10 +18,17 @@ const Game = () => {
     dispatch(setBoard({ gridsize }))
   }, [])
 
+  const pcButton = useRef(null)
+
+  const pcMove = async () => {
+    setTimeout(async () => {
+      await dispatch(makePcMove({ turn }))
+    }, 2000)
+  }
+
   const pushCard = async (id) => {
-    const { statusUpdate } = await dispatch(makeMove({ id, turn }))
-    setStatus(statusUpdate)
-    toggleTurn()
+    await dispatch(makeMove({ id, turn }))
+    pcButton.current.click()
   }
 
   return (
@@ -37,7 +39,7 @@ const Game = () => {
             className='card flex'
             key={item.box}
             onClick={
-              !item.content && status !== 'win'
+              !item.content && status !== 'win' && !lock
                 ? () => pushCard(item.box)
                 : null
             }
@@ -45,6 +47,13 @@ const Game = () => {
             {item.content}
           </article>
         ))}
+        <button
+          className='pc-button'
+          ref={pcButton}
+          onClick={status === 'continue' ? pcMove : null}
+        >
+          Click
+        </button>
       </section>
     </main>
   )

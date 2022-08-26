@@ -1,8 +1,17 @@
 const _ = require('lodash')
 import { mod, subset, index } from 'mathjs'
 
+export const checkDraw = ({ board }) => {
+  return _(board).every('content')
+}
+
+export const createBoard = ({ gridsize }) => {
+  return _.times(gridsize ** 2, {}).map((item, index) => {
+    return { content: '', box: index }
+  })
+}
+
 const getRow = (id, nthCol, gridsize) => {
-  console.log('nthCol', nthCol)
   if (nthCol === 0) {
     return [id, id + 1, id + 2]
   }
@@ -24,16 +33,6 @@ const getCol = (id, nthRow, gridsize) => {
   }
 
   return [id - gridsize, id, id + gridsize]
-}
-
-export const checkDraw = ({ board }) => {
-  return _(board).every('content')
-}
-
-export const createBoard = ({ gridsize }) => {
-  return _.times(gridsize ** 2, {}).map((item, index) => {
-    return { content: '', box: index }
-  })
 }
 
 export const checkWin = ({ board, turn, id }) => {

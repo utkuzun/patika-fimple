@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { checkDraw, createBoard, checkWin } from '../utils/boardHelpers'
+
+import { setStatus, toggleTurn, toggleLock } from '../reducers/gameReducer'
+
 const initialState = []
 
 const boardSlice = createSlice({
@@ -34,16 +37,29 @@ export const makeMove = ({ id, turn }) => {
     const isDraw = checkDraw({ board })
 
     if (isDraw) {
-      return { statusUpdate: 'draw' }
+      dispatch(setStatus('draw'))
+      return
     }
 
     const isWin = checkWin({ board, turn, id })
 
     if (isWin) {
-      return { statusUpdate: 'win' }
+      dispatch(setStatus('win'))
+      return
     }
 
-    return { statusUpdate: 'continue' }
+    dispatch(setStatus('continue'))
+    dispatch(toggleTurn())
+    dispatch(toggleLock())
+  }
+}
+
+export const makePcMove = ({ turn }) => {
+  return async (dispatch, getState) => {
+    const board = getState().board
+    const emptyBox = board.find((item) => item.content === '')
+
+    dispatch(makeMove({ id: emptyBox.box, turn }))
   }
 }
 
