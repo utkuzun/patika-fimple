@@ -37,7 +37,7 @@ const Game = () => {
             className='card flex'
             key={item.box}
             onClick={
-              !item.content && status !== 'finish'
+              !item.content && status !== 'win'
                 ? () => pushCard(item.box)
                 : null
             }

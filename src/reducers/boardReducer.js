@@ -37,7 +37,11 @@ export const makeMove = ({ id, turn }) => {
       return { statusUpdate: 'draw' }
     }
 
-    checkWin({ board, turn, id })
+    const isWin = checkWin({ board, turn, id })
+
+    if (isWin) {
+      return { statusUpdate: 'win' }
+    }
 
     return { statusUpdate: 'continue' }
   }
