@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+main {
+  margin: 2rem;
+  padding: 1rem;
+  position: relative;
+}
+
 section {
   width: 100%;
   margin: 10px auto;
@@ -46,5 +52,9 @@ section {
 }
 
 .pc-button {
+  display: none;
+}
+
+.hide {
   display: none;
 }

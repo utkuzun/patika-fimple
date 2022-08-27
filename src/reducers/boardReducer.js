@@ -57,9 +57,11 @@ export const makeMove = ({ id, turn }) => {
 export const makePcMove = ({ turn }) => {
   return async (dispatch, getState) => {
     const board = getState().board
-    const emptyBox = board.find((item) => item.content === '')
+    const emptyBoxes = board.filter((item) => item.content === '')
+    // const selectBox = emptyBoxes[0]
+    const selectBox = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)]
 
-    dispatch(makeMove({ id: emptyBox.box, turn }))
+    dispatch(makeMove({ id: selectBox.box, turn }))
   }
 }
 

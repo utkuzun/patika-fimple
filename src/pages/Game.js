@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { setBoard, makeMove, makePcMove } from '../reducers/boardReducer'
 
+import Card from '../components/Card'
+import Modal from '../components/Modal'
+
 const Game = () => {
   const board = useSelector((state) => state.board)
   const options = useSelector((state) => state.options)
@@ -18,7 +21,7 @@ const Game = () => {
     dispatch(setBoard({ gridsize }))
   }, [])
 
-  const pcButton = useRef(null)
+  const pcMoveButton = useRef(null)
 
   const pcMove = async () => {
     setTimeout(async () => {
@@ -28,33 +31,32 @@ const Game = () => {
 
   const pushCard = async (id) => {
     await dispatch(makeMove({ id, turn }))
-    pcButton.current.click()
+    pcMoveButton.current.click()
   }
 
   return (
     <main>
       <section className='grid'>
         {board.map((item) => (
-          <article
-            className='card flex'
+          <Card
+            box={item}
             key={item.box}
-            onClick={
-              !item.content && status !== 'win' && !lock
-                ? () => pushCard(item.box)
-                : null
+            pushCard={
+              !item.content && status !== 'win' && !lock ? pushCard : null
             }
-          >
-            {item.content}
-          </article>
+          />
         ))}
         <button
           className='pc-button'
-          ref={pcButton}
+          ref={pcMoveButton}
           onClick={status === 'continue' ? pcMove : null}
         >
           Click
         </button>
       </section>
+      <Modal status={status}>
+        <h2>{turn} won the game</h2>
+      </Modal>
     </main>
   )
 }

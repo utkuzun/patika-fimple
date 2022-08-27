@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
-    <section>
-      <button>
-        <Link to='/options'>Start Game</Link>
-      </button>
-    </section>
+    <main>
+      <section>
+        <button>
+          <Link to='/game'>Start Game</Link>
+        </button>
+      </section>
+    </main>
   )
 }
 
