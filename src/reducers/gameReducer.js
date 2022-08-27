@@ -19,8 +19,12 @@ const gameSlice = createSlice({
     setStatus(state, action) {
       return { ...state, status: action.payload }
     },
+    resetGame() {
+      return initialState
+    },
   },
 })
 
-export const { toggleTurn, toggleLock, setStatus } = gameSlice.actions
+export const { toggleTurn, toggleLock, setStatus, resetGame } =
+  gameSlice.actions
 export default gameSlice.reducer

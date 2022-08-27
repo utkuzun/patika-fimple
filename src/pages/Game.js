@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setBoard, makeMove, makePcMove } from '../reducers/boardReducer'
+import { resetGame } from '../reducers/gameReducer'
 
 import Card from '../components/Card'
 import Modal from '../components/Modal'
@@ -14,11 +15,11 @@ const Game = () => {
   const dispatch = useDispatch()
 
   const { turn, lock, status } = game
+  const { gridsize } = options
 
   useEffect(() => {
-    const gridsize = options.gridsize
-
     dispatch(setBoard({ gridsize }))
+    dispatch(resetGame())
   }, [])
 
   const pcMoveButton = useRef(null)
@@ -26,7 +27,7 @@ const Game = () => {
   const pcMove = async () => {
     setTimeout(async () => {
       await dispatch(makePcMove({ turn }))
-    }, 2000)
+    }, 1000)
   }
 
   const pushCard = async (id) => {
@@ -56,6 +57,14 @@ const Game = () => {
       </section>
       <Modal status={status}>
         <h2>{turn} won the game</h2>
+        <button
+          onClick={() => {
+            dispatch(setBoard({ gridsize }))
+            dispatch(resetGame())
+          }}
+        >
+          New game
+        </button>
       </Modal>
     </main>
   )
