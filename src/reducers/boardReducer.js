@@ -36,15 +36,15 @@ export const makeMove = ({ id, turn }) => {
 
     const isDraw = checkDraw({ board })
 
-    if (isDraw) {
-      dispatch(setStatus('draw'))
-      return
-    }
-
     const isWin = checkWin({ board, turn, id })
 
     if (isWin) {
       dispatch(setStatus('win'))
+      return
+    }
+
+    if (isDraw) {
+      dispatch(setStatus('draw'))
       return
     }
 

@@ -56,7 +56,8 @@ const Game = () => {
         </button>
       </section>
       <Modal status={status}>
-        <h2>{turn} won the game</h2>
+        {status === 'win' ? <h2>{turn} won the game</h2> : <h2>draw</h2>}
+
         <button
           onClick={() => {
             dispatch(setBoard({ gridsize }))
