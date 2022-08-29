@@ -56,7 +56,7 @@ const Game = () => {
         </button>
       </section>
       <Modal status={status}>
-        {status === 'win' ? <h2>{turn} won the game</h2> : <h2>draw</h2>}
+        {status === 'win' ? <h4>{turn} won the game</h4> : <h4>draw</h4>}
 
         <button
           onClick={() => {

@@ -61,9 +61,9 @@ section {
 }
 
 button {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: hsl(209, 61%, 16%);
-  border-radius: 4px;
+  border-radius: 0.5rem;
   border: 3px solid hsl(360, 67%, 44%);
   padding: 5px 10px;
   cursor: pointer;
@@ -125,7 +125,37 @@ button:hover {
   width: 80%; /* Could be more or less, depending on screen size */
 }
 
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  background-color: #fefefe;
+  padding: 0.2rem;
+  border: 2px solid hsl(360, 67%, 44%);
+  border-radius: 5px;
+}
+
+.input-container select {
+  background-color: #fefefe;
+  border: none;
+}
+
 @media screen and (max-width: 700px) {
+  button {
+    font-size: 0.7rem;
+    border-radius: 4px;
+    padding: 1.2px 2.5px;
+  }
+
   .card {
     width: 75px;
     height: 75px;
@@ -138,5 +168,16 @@ button:hover {
 
   .grid {
     grid-template-columns: repeat(3, 75px);
+  }
+
+  .input-container {
+    width: 80%;
+    padding: 0.1rem;
+    gap: 5px;
+  }
+
+  .input-container select,
+  .input-container label {
+    font-size: 0.8rem;
   }
 }

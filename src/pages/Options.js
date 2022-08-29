@@ -28,8 +28,8 @@ const Options = () => {
 
   return (
     <section>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form className='form-section' onSubmit={handleSubmit}>
+        <div className='input-container'>
           <label htmlFor='gridsize'>Gridsize</label>
           <select name='gridsize' onChange={handleFormChange}>
             {options.gridOptions.map((item) => (
@@ -39,7 +39,7 @@ const Options = () => {
             ))}
           </select>
         </div>
-        <div>
+        <div className='input-container'>
           <label htmlFor='difficulty'>Difficulty</label>
           <div>
             <select name='difficulty' onChange={handleFormChange}>
@@ -48,17 +48,16 @@ const Options = () => {
             </select>
           </div>
         </div>
-        <div>
+        <div className='input-container'>
           <label htmlFor='mode'>Mode</label>
           <select name='mode' onChange={handleFormChange}>
-            <option value='twoPlayer'>2 Player</option>
+            <option value='twoPlayer'>two player</option>
             <option value='single'>single</option>
           </select>
         </div>
-        <br />
         <button type='submit'>
           <Link to='/game'></Link>
-          start game
+          Start game
         </button>
       </form>
     </section>
